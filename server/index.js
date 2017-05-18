@@ -1,6 +1,7 @@
 var express = require('express');
+var Service = require('../modules/service');
+
 var app = express();
-var middleware = require('./middleware');
 
 var port = 4000;
 
@@ -9,21 +10,26 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
+
     res.redirect("index.html")
 });
 
 app.post('/submit', function (req, res) {
-    var firstName = req.body.firstname;
-    var lastName = req.body.lastname;
-    middleware.insert(firstName, lastName)
-    res.redirect('/show');
+    var service = new Service("/submit");
+    service.post(req.body, function (err, created) {
+        if (err || created.error) next(err || created.error);
+        else res.redirect('/show');
+    });
 })
 
 app.get('/show', function (req, res) {
-    middleware.retrive().then(function (data) {
-        res.send( data)
-    }).catch(err => {done(err)})
+    var service = new Service("/show");
+    service.get(function (err, created) {
+        if (err || created.error) next(err || created.error);
+        else res.send(created);
+    });
 })
+
 
 app.use(express.static('./public'));
 

@@ -16,6 +16,7 @@
     "pg": "^6.2.2"
   },
   "devDependencies": {
-    "knex": "^0.13.0"
+    "knex": "^0.13.0",
+    "request": "^2.81.0"
   }
 }
