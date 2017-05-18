@@ -23,12 +23,9 @@ var _get = function (callback) {
     });
 };
 
-var Service = function (path, username, password) {
+var Service = function (path) {
     this.options = {
-        url: 'http://localhost:4444' + path,
-        headers: {
-            'Authorization': "Basic " + new Buffer(username + ":" + password).toString("base64")
-        }
+        url: 'http://localhost:4444' + path
     }
 };
 

@@ -10,7 +10,6 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
-
     res.redirect("index.html")
 });
 
